@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	pre{
+		border: 5px solid orange;
+		background: #C4DEFF;
+	}
+</style>
+
+<script>
+	var circle = {
+			rad : 10,
+			getArea : function(){
+				return this.rad * this.rad * 3.14;
+			},
+			
+			getCircum : function(){
+				return 2 * this.rad * 3.14;
+			}
+	}
+	
+	res = "";
+	while(true){
+		//반지름 입력 받기 - prompt
+	circle.rad = prompt("반지름을 입력하세요 : ");
+		
+		res+= `반지름 : ${circle.rad}<br>`;
+		res+= `면적 : ${circle.getArea}<br>`;
+		res+= `둘레 : ${circle.getCircum}<br>`;
+		
+		//동적 속성 추가
+		circle.name = "동그라미";
+		res += `이름 : ${circle.name}`;
+		
+		// 동적 메소드 추가
+		circle.getDiamt = function(){
+			return 2*this.red;			
+		}
+		res += `원지름 : ${circle.getDiamt()}
+		
+		
+		//confirm
+		confirm("계속 입력하시겠습니까?")
+	}
+</script>
+</head>
+<body>
+
+<pre>
+Circle 객체 생성 - 리터럴에 의한 객체
+속성 : 반지름
+메소드 : 면적구하기 ( 반지름 * 반지름 * 3.14)
+		 둘레구하기 (2*반지름*3.14)
+</pre>
+
+	<div id="rst"></div>
+
+</body>
+</html>

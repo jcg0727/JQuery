@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+// 		$('#wrapper').hide();
+		$('#endSceen').hide();
+		$('#itemImg').hide();
+		
+		
+		const canvas = document.getElementById('map')
+		const ctx = canvas.getContext('2d')
+
+		var button = 'u';
+		var button1 = 'u';
+		var hormin = 600;
+		var vermin = 60;
+		var hormax = 1290;
+		var vermax = 760;
+		var score1 = 0;
+		var score2 = 0;
+		var lo =[];
+		var lo1 = 2;//지렁이1 초기크기
+		var lo2 = 2;//지렁이2 초기 크기
+		var it = 0;
+		var start = false;
+		var restartBtn = document.getElementById('restart');
+		var startBtn = document.getElementById('start');
+		var winner='';
+		var speed = 50;
+		
+		
+		//지렁이1
+		var jix = [];
+		var makeJi1 = function() {
+			jix[0] = $('<img>', {
+				src : 'img/worm1.jpg',
+				class : 'jix',
+				width : '15px',
+				height : '15px'
+			}).css({
+				position : 'absolute',
+				left : 705 + 'px',
+				top : 300 + 15 + 'px'
+			}).appendTo('#body');
+			for (var a = 1; a < 3; a++) {
+				jix[a] = $('<img>', {
+					src : 'img/worm1.jpg',
+					class : 'jix',
+					width : '15px',
+					height : '15px'
+				}).css({
+					position : 'absolute',
+					left : 705 + 'px',
+					top : 300 + (15 * a + 15) + 'px'
+				}).appendTo('#body');
+			}
+		}
+		//지렁이 2
+		var jix1 = [];
+		var makeJi2 = function() {
+			jix1[0] = $('<img>', {
+				src : 'img/worm2.jpg',
+				class : 'jix',
+				width : '15px',
+				height : '15px'
+			}).css({
+				position : 'absolute',
+				left : 1005 + 'px',
+				top : 300 + 15 + 'px'
+			}).appendTo('#body');
+			for (var a = 1; a < 3; a++) {
+				jix1[a] = $('<img>', {
+					src : 'img/worm2.jpg',
+					class : 'jix',
+					width : '15px',
+					height : '15px'
+				}).css({
+					position : 'absolute',
+					left : 1005 + 'px',
+					top : 300 + (15 * a + 15) + 'px'
+				}).appendTo('#body');
+			}
+		}
+
+
+		//게임끝나면
+		var endFun = function() {
+			$('#endSceen').show();
+			$('#gameover').show();
+			$('#resultScore').html('플레이어 1 : ' + score1 + '점');
+			$('#resultScore1').html('플레이어 2 : ' + score2 + '점');
+			if(winner == ''){
+				winner = score1 > score2 ? '플레이어1' : score1==score2 ? '무승부' : '플레이어2';
+			}
+			$('#winner').html('우승자 : ' + winner);
+			start = false;
+			$('.jix').remove();
+// 			itemImg.style.display = 'none';
+// 			restartBtn.style.display = 'inline';
+			$('#restart').show();
+		}
+
+		//다시시작버튼 누르면 시작하기
+		restartBtn.onclick = function() {
+          location.reload();
+          
+		};
+
+		//시작버튼 누르면 시작하기
+		startBtn.onclick = function() {
+// 			$('.box1').hide();
+			$('#start').hide();
+			$('#wrapper').show();
+			makeJi1();
+			makeJi2();
+			start = true;
+			$('#canvas').show();
+			$(this).hide();
+			var up = setInterval(function() {
+				if (start) {
+					for (var i = jix.length - 1; i >= 1; i--) {
+						jix[i].css({
+							'left' : parseInt(jix[i - 1].css('left')) + 'px',
+							'top' : parseInt(jix[i - 1].css('top')) + 'px'
+						})
+					}
+					jix[0].css({
+						'top' : parseInt(jix[0].css('top')) - 15 + 'px'
+					})
+					if (button != 'u') {
+						clearInterval(up);
+					}
+					if (parseInt(jix[0].css('top')) < vermin) { //x[0]<hormin || x[0]>hormax || || y[0]>vermax
+						winner = '플레이어2';
+						clearInterval(up);
+						endFun();
+					}
+				}
+			}, 50);
+
+			var up1 = setInterval(function() {
+				if (start) {
+					for (var i = jix1.length - 1; i >= 1; i--) {
+						jix1[i].css({
+							'left' : parseInt(jix1[i - 1].css('left')) + 'px',
+							'top' : parseInt(jix1[i - 1].css('top')) + 'px'
+						})
+					}
+					jix1[0].css({
+						'top' : parseInt(jix1[0].css('top')) - 15 + 'px'
+					})
+					if (button1 != 'u') {
+						clearInterval(up1);
+					}
+					if (parseInt(jix1[0].css('top')) < vermin) { //x[0]<hormin || x[0]>hormax || || y[0]>vermax
+						endFun();
+						winner = '플레이어1';
+						clearInterval(up1);
+					}
+				}
+			},50);
+			
+		//먹이 함수
+		var nu1 =0;
+		var nu2 =0;		
+		var item = setInterval(function() {
+	        	  var xx = Math.round(Math.random()*(630)+630)
+	        	  var yy = Math.round(Math.random()*(620)+100)		
+	        	  lo[it] = $('<img>', {
+	    			src : 'img/food.jpg',
+	    			class : 'jix',
+	    			width : '15px',
+	    			height : '15px'
+	    		}).css({
+	    			position : 'absolute',
+	    			left : xx + 'px',
+	    			top : yy + 'px'
+	    		}).appendTo('#body');
+	             	it+=1;
+	             	
+		}, 4000);
+		var llong =setInterval(function() {
+     		for(var a=0;a<lo.length;a++){
+     			var left0 = parseInt(lo[a].css('left'));
+     			var top0 = parseInt(lo[a].css('top'));
+    			var left1 = parseInt(jix[0].css('left'));
+    			var top1 = parseInt(jix[0].css('top'));
+    			var left2 = parseInt(jix1[0].css('left'));
+    			var top2 = parseInt(jix1[0].css('top'));
+    			if(left1-15<=left0&&left0<=left1+15&&top1-15<=top0&&top0<=top1+15){
+    				lo[a].css('top',Math.round(Math.random()*(620)+100)).css('left',Math.round(Math.random()*(630)+630));//****
+    				score1+=1;//****
+    				var io= 'score: '+score1+':'+score2//****
+    				$('#score').text(io);//****
+    				lo1+=1;//**** 반복문 빠짐
+    				jix[lo1] = $('<img>', {
+    					src : 'img/worm1.jpg',
+    					class : 'jix',
+    					width : '15px',
+    					height : '15px'
+    				}).css({
+    					position : 'absolute',
+						'left' : parseInt(jix[lo1 - 1].css('left')) + 'px',
+						'top' : parseInt(jix[lo1 - 1].css('top')) + 'px'
+    				}).appendTo('#body');}
+    			
+    			if(left2-15<=left0&&left0<=left2+15&&top2-15<=top0&&top0<=top2+15){
+    				lo[a].css('top',Math.round(Math.random()*(620)+100)).css('left',Math.round(Math.random()*(630)+630));//****	            
+    				score2+=1;//****
+    				var io=score1+':'+score2//****
+    				$('#score').text(io);//****
+    				lo2+=1;//**** 반복문 빠짐
+    				jix1[lo2] = $('<img>', {
+    					src : 'img/worm2.jpg',
+    					class : 'jix',
+    					width : '15px',
+    					height : '15px'
+    				}).css({
+    					position : 'absolute',
+						'left' : parseInt(jix1[lo2 - 1].css('left')) + 'px',
+						'top' : parseInt(jix1[lo2 - 1].css('top')) + 'px'
+    				}).appendTo('#body');
+    				
+    			}
+     		}
+			if (!start)
+				clearInterval(item);
+     	}, 0)
+// 			var afterMin = setTimeout(function() {
+// 				endFun();
+// 			}, 60000);
+			//시간제한//**** 시간초 나옴
+			var ti = 1;//****
+			var afterMin = setInterval(function() {//****
+				if(!start){
+					clearInterval(afterMin);
+				}
+	            var ti2=ti;//****
+	            $('#time').text("time: "+ti2+" 초");//****
+				if(ti2==30){//****
+				endFun();}//****
+	            ti+=1;//****
+			}, 1000);//****
+		};
+
+
+
+
+
+
+
+		//해당버튼 누르면
+		$('#body').keydown(function() {
+			if (start) {
+				var left = parseInt(jix[0].css('left'));
+				var top = parseInt(jix[0].css('top'));
+				var left1 = parseInt(jix1[0].css('left'));
+				var top1 = parseInt(jix1[0].css('top'));
+			if (event.keyCode == 87 && button != 'd' && button != 'u') { // w:87   a : 65 s: 83  d: 68
+				button = 'u';
+				var up = setInterval(function() {
+					if (start) {
+						for (var i = jix.length - 1; i >= 1; i--) {
+							jix[i].css({
+								'left' : parseInt(jix[i - 1].css('left')) + 'px',
+								'top' : parseInt(jix[i - 1].css('top')) + 'px'
+							})
+						}
+						jix[0].css({
+							'top' : parseInt(jix[0].css('top')) - 15 + 'px'
+						})
+						if (button != 'u') {
+							clearInterval(up);
+						}
+						if (parseInt(jix[0].css('top')) < vermin) { //x[0]<hormin || x[0]>hormax || || y[0]>vermax
+							winner = '플레이어2';
+							endFun();
+							clearInterval(up);
+						}
+					}
+				}, 50);
+
+			} else if (event.keyCode == 83 && button != 'u' && button != 'd') {
+				button = 'd';
+				var down = setInterval(function() {
+					if (start) {
+						for (var i = jix.length - 1; i >= 1; i--) {
+							jix[i].css({
+								'left' : parseInt(jix[i - 1].css('left')) + 'px',
+								'top' : parseInt(jix[i - 1].css('top')) + 'px'
+							})
+						}
+						jix[0].css({
+							'top' : parseInt(jix[0].css('top')) + 15 + 'px'
+						})
+						if (button != 'd') {
+							clearInterval(down);
+						}
+						if (parseInt(jix[0].css('top')) > vermax) { //x[0]<hormin || x[0]>hormax || || y[0]>vermax
+							winner = '플레이어2';
+							endFun();
+							clearInterval(down);
+						}
+					}
+				}, 50);
+			} else if (event.keyCode == 65 && button != 'r' && button != 'l') {
+				button = 'l';
+				var move = setInterval(function() {
+					if (start) {
+						for (var i = jix.length - 1; i >= 1; i--) {
+							jix[i].css({
+								'left' : parseInt(jix[i - 1].css('left')) + 'px',
+								'top' : parseInt(jix[i - 1].css('top')) + 'px'
+							})
+						}
+						jix[0].css({
+							'left' : parseInt(jix[0].css('left')) - 15 + 'px'
+						})
+						if (button != 'l') {
+							clearInterval(move);
+						}
+						if (parseInt(jix[0].css('left')) < hormin) { //x[0]<hormin || x[0]>hormax || || y[0]>vermax
+							winner = '플레이어2';
+							endFun();
+							clearInterval(move);
+						}
+						if (!start)
+							clearInterval(move);
+					}
+				}, 50);
+			} else if (event.keyCode == 68 && button != 'l' && button != 'r') {
+				button = 'r';
+				var right = setInterval(function() {
+					if (start) {
+						for (var i = jix.length - 1; i >= 1; i--) {
+							jix[i].css({
+								'left' : parseInt(jix[i - 1].css('left')) + 'px',
+								'top' : parseInt(jix[i - 1].css('top')) + 'px'
+							})
+						}
+						jix[0].css({
+							'left' : parseInt(jix[0].css('left')) + 15 + 'px'
+						})
+						if (button != 'r') {
+							clearInterval(right);
+						}
+						if (parseInt(jix[0].css('left')) > hormax) { //x[0]<hormin || x[0]>hormax || || y[0]>vermax
+							winner = '플레이어2';
+							endFun();
+							clearInterval(right);
+						}
+					}
+				}, 50);
+			} else if (event.keyCode == 38 && button1 != 'd' && button1 != 'u') { //위 38 왼 37 아래 40 오39
+				button1 = 'u';
+				var up1 = setInterval(function() {
+					if (start) {
+						for (var i = jix1.length - 1; i >= 1; i--) {
+							jix1[i].css({
+								'left' : parseInt(jix1[i - 1].css('left')) + 'px',
+								'top' : parseInt(jix1[i - 1].css('top')) + 'px'
+							})
+
+						}
+						jix1[0].css({
+							'top' : parseInt(jix1[0].css('top')) - 15 + 'px'
+						})
+						if (button1 != 'u') {
+							clearInterval(up1);
+						}
+						if (parseInt(jix1[0].css('top')) < vermin) { //x[0]<hormin || x[0]>hormax || || y[0]>vermax
+							winner = '플레이어1';
+							endFun();
+							clearInterval(up1);
+						}
+						if (!start)
+							clearInterval(up1);
+					}
+				}, 50);
+			} else if (event.keyCode == 40 && button1 != 'u' && button1 != 'd') {
+				button1 = 'd';
+				var down1 = setInterval(function() {
+					if (start) {
+						for (var i = jix1.length - 1; i >= 1; i--) {
+							jix1[i].css({
+								'left' : parseInt(jix1[i - 1].css('left')) + 'px',
+								'top' : parseInt(jix1[i - 1].css('top')) + 'px'
+							})
+						}
+						jix1[0].css({
+							'top' : parseInt(jix1[0].css('top')) + 15 + 'px'
+						})
+						if (button1 != 'd') {
+							clearInterval(down1);
+						}
+						if (parseInt(jix1[0].css('top')) > vermax) { //x[0]<hormin || x[0]>hormax || || y[0]>vermax
+							winner = '플레이어1';
+							endFun();
+							clearInterval(down1);
+						}
+					}
+				},50);
+			} else if (event.keyCode == 37 && button1 != 'r' && button1 != 'l') {
+				button1 = 'l';
+				var left1 = setInterval(function() {
+					if (start) {
+						for (var i = jix1.length - 1; i >= 1; i--) {
+							jix1[i].css({
+								'left' : parseInt(jix1[i - 1].css('left')) + 'px',
+								'top' : parseInt(jix1[i - 1].css('top')) + 'px'
+							})
+						}
+						jix1[0].css({
+							'left' : parseInt(jix1[0].css('left')) - 15 + 'px'
+						})
+						if (button1 != 'l') {
+							clearInterval(left1);
+						}
+						if (parseInt(jix1[0].css('left')) < hormin) { //x[0]<hormin || x[0]>hormax || || y[0]>vermax
+							winner = '플레이어1';
+							endFun();
+							clearInterval(left1);
+						}
+					}
+				}, 50);
+			} else if (event.keyCode == 39 && button1 != 'l' && button1 != 'r') {
+				button1 = 'r';
+				var move = setInterval(function() {
+					if (start) {
+						for (var i = jix1.length - 1; i >= 1; i--) {
+							jix1[i].css({
+								'left' : parseInt(jix1[i - 1].css('left')) + 'px',
+								'top' : parseInt(jix1[i - 1].css('top')) + 'px'
+							})
+						}
+						jix1[0].css({
+							'left' : parseInt(jix1[0].css('left')) + 15 + 'px'
+						})
+						if (button1 != 'r') {
+							clearInterval(move);
+						}
+						if (parseInt(jix1[0].css('left')) > hormax) { //x[0]<hormin || x[0]>hormax || || y[0]>vermax
+							winner = '플레이어1';
+							endFun();
+							clearInterval(move);
+						}
+					}
+				}, 50);
+			}
+
+			// 충돌 다시하기 적용 안됨
+			var crash = setInterval(function() {
+				if (!start) {
+					clearInterval(crash);
+				}
+					for (var a = 4; a < jix.length; a++) {
+						if (parseInt(jix[0].css('left'))==parseInt(jix[a].css('left'))
+						&&parseInt(jix[0].css('top'))==parseInt(jix[a].css('top'))){
+
+							winner = '플레이어2';
+// 							alert('파랑이 혼자 부딪힘')
+							endFun();	
+						}
+					}
+			}, 0);
+			
+			var crash1 = setInterval(function() {
+				if (!start) {
+					clearInterval(crash1);
+				}
+				for (var a = 4; a < jix1.length; a++) {
+					if (Math.abs(parseInt(jix1[0].css('left'))-parseInt(jix1[a].css('left'))) < 15
+					&& Math.abs(parseInt(jix1[0].css('top'))-parseInt(jix1[a].css('top'))) < 15){
+//							alert('주황이 혼자 부딪힘')
+						winner = '플레이어1';
+						endFun();	
+					}
+				}
+			}, 0);
+			
+			var crashTwo = setInterval(function() {
+				if (!start) {
+					clearInterval(crashTwo);
+				}
+				if (Math.abs(parseInt(jix[0].css('left'))-parseInt(jix1[0].css('left'))) < 15
+						&& Math.abs(parseInt(jix[0].css('top'))-parseInt(jix1[0].css('top'))) < 15){
+							winner = '무승부';
+							endFun();
+				}
+					for (var a = 1; a < jix1.length; a++) {
+						if (Math.abs(parseInt(jix[0].css('left'))-parseInt(jix1[a].css('left'))) < 15
+						&& Math.abs(parseInt(jix[0].css('top'))-parseInt(jix1[a].css('top'))) < 15){
+// 							alert('파랑이가 주황이에게 들이박음');
+							winner = '플레이어2';
+							endFun();	
+						}
+					}
+			}, 0);
+			
+			var crashTwo1 = setInterval(function() {
+				if (!start) {
+					clearInterval(crashTwo1);
+				}
+				if (Math.abs(parseInt(jix[0].css('left'))-parseInt(jix1[0].css('left'))) < 15
+						&& Math.abs(parseInt(jix[0].css('top'))-parseInt(jix1[0].css('top'))) < 15){
+							winner = '무승부';
+							endFun();
+				}
+					for (var a = 1; a < jix.length; a++) {
+						if (Math.abs(parseInt(jix1[0].css('left'))-parseInt(jix[a].css('left'))) < 15
+						&& Math.abs(parseInt(jix1[0].css('top'))-parseInt(jix[a].css('top'))) < 15){
+							winner = '플레이어1';
+							endFun();	
+						}
+					}
+			}, 0);
+			var crashBoundSyncro = setInterval(function() {
+				if (!start) {
+					clearInterval(crashBoundSyncro);
+				}
+				if (parseInt(jix[0].css('left'))<hormin && parseInt(jix1[0].css('left'))<hormin){
+					winner = '무승부';
+					endFun();
+				}
+				if (parseInt(jix[0].css('left'))>hormax && parseInt(jix1[0].css('left'))>hormax){
+					winner = '무승부';
+					endFun();
+				}
+				if (parseInt(jix[0].css('top'))<vermin && parseInt(jix1[0].css('top'))<vermin){
+					winner = '무승부';
+					endFun();
+				}
+				if (parseInt(jix[0].css('top'))>vermax && parseInt(jix1[0].css('top'))<vermax){
+					winner = '무승부';
+					endFun();
+				}
+				
+			}, 0);
+			
+			
+			
+		}
+		});
+
+		
+
+	});
+</script>
+<style type="text/css">
+@font-face {
+	font-family: karma;
+	src: url(karma_future.ttf);
+}
+article, aside, details, figcaption, figure, footer, header, hgroup,
+	menu, nav, section {
+	display: block;
+}
+
+body {
+	border: 0;
+	padding: 0;
+ 	background-image: url('img/palmlast.jpg'); 
+	min-height: 100%;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+	overflow: hidden;
+}
+h1 {
+	text-align: center;
+}
+
+p {
+	text-align: center;
+}
+
+canvas {
+	display: block;
+	position: absolute;
+	border: 1px dashed #FFC81E;
+	margin: auto;
+	top: 0px; 
+ 	bottom: 0; 
+	right: 0; 
+ 	left: 0; 
+ 	margin-left: 0;
+ 	margin-top: 0;
+	background: white;
+}
+#endSceen {
+	position: absolute;
+	left: 600px;
+	width: 700px;
+	height: 700px;
+	margin: 0 auto;
+	margin-left: auto;
+	margin-right: auto;
+	z-index: 10;
+	top: 60px; 
+	text-align: center;
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99000000',
+		endColorstr='#e6000000', GradientType=1);
+	font-family: karma;
+	text-align: center;
+	color: #C9C9C9;
+	font-family: karma;
+	text-shadow: 2px 2px 2px #FAEBC3;
+	/* 	    font-size:3rem;   */
+	content: center;
+/* 	border: 1px dashed #F4BBDE; */
+	/*         	DISPLAY: NONE; */
+	/* 	BORDER: 2PX DOUBLE RED; */
+}
+
+#wrapper {
+	position: absolute;
+	left: 600px;
+	width: 930px;
+	height: 700px;
+	margin: 0 auto;
+		top: 60px; 
+ 	border: 1px dashed #FFC81E; 
+}
+
+#score {
+/* 	position: absolute; */
+	margin: 10px;
+	font: 25px Comic Sans MS;
+	color: white;
+}
+
+#time {
+/* 	position: absolute; */
+	margin: 10px;
+	font: 25px Comic Sans MS;
+	color: white;
+}
+#gameover {
+	display: none;
+	width: 600px;
+	height: 400px;
+}
+
+#itemImg {
+	display: none;
+	width: 25px;
+	height: 25px;
+}
+
+#resultScore {
+	color: #63CC63;
+}
+
+#resultScore1 {
+	color: #A0FA78;
+}
+.box{
+	position: absolute;
+	width: 500px;
+	height: 700px;
+	left: 20%;
+	top: 310px;
+	margin-left: -250px;
+	margin-top: -250px;
+	border: 1px dashed #FFC81E;
+	/*   border: #F7F7CD dashed 1px;  */
+}
+.box1 {
+	margin: 10px;
+	position: absolute;
+	width: 500px;
+	height: 500px;
+	left: 20%;
+	top: 310px; 
+	margin-left: -250px;
+	margin-top: -250px;
+	border: 1px dashed #FFC81E;
+	/*   border: #F7F7CD dashed 1px;  */
+	background: white;
+	background-image: url("img/wormgame.jpg");
+}
+.box2{
+	position: absolute;
+	width: 500px;
+	height: 700px;
+	left: 20%;
+	top: 800px; 
+	text-align: center;
+	margin-left: -250px;
+	margin-top: -250px;
+	/*   border: #F7F7CD dashed 1px;  */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99000000', endColorstr='#e6000000',GradientType=1 ); 
+	font-family: karma; 
+	text-shadow:2px 2px 2px #FFA500; 
+	font-weight: bold; 
+	color: white; 
+}
+.design {
+	position: absolute;
+	width: 100px;
+	height: 30px;
+	left: 50%;
+	top: 50%;
+	margin-left: 120px;
+	margin-top: 195px;
+	z-index:10; 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99000000', endColorstr='#e6000000',GradientType=1 ); 
+	font-family: karma; 
+	text-shadow:2px 2px 2px #FFA500; 
+	font-size:20px; 
+	font-weight: bold; 
+	color: white; 
+	width:130px; 
+	height:40px; 
+	background-color: #FFD732;
+	border: 1px dashed #FAFAB4;
+}
+
+
+#restart {
+/* 	display: none; */
+	font-family: karma; 
+	font-size:30px; 
+	font-weight: bold; 
+	color: white; 
+	width:200px; 
+	height:45px; 
+	background-color: #B4F0B4; 
+	border: 1px solid #FDF5D2;"
+}
+</style>
+<title>김권박유천</title>
+</head>
+
+<body id="body">
+
+<div class="box">
+</div>
+
+<div class="box1">
+<button id="start" class="design" >Game Start!</button>
+</div>
+
+<div class="box2">
+<h1><게임방법></h1>
+# 조작키- 1 player:w,a,s,d 2player:←,↑,→,↓<br>
+<br>
+#게임의 제한시간은 1분<br>
+#제한시간내 더 높은 점수를 내는 플레이어가 승<br>
+#지렁이의 머리가 다른지렁이의 머리에 부딪히면 게임종료
+</div>
+
+<div id="wrapper">
+<canvas id="map" width="700" height="700"></canvas>
+<p id="score" style="margin-left: 630px" align="left" >score:</p>
+<br>
+
+<p id="time" style="margin-left: 630px" align="left"  >time:</p>
+</div>
+
+	<div id="endSceen">
+	<br>
+	<br>
+		<img src="img/gameover1.jpg" id="gameover" align="center"><br>
+		<h1 id="resultScore"></h1>
+		<h1 id="resultScore1"></h1>
+		<h1 id="winner" style="font-size: 30px"></h1>
+		<button id="restart">확인</button>
+	</div>
+
+
+</body>
+</html>

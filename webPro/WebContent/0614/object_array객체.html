@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<script>
+/* 리터럴 객체 생성을 권장하는 이유 2. 속도가 빠름 */
+console.time('using[]')
+	for (i = 0; i < 200000; i++) {
+		arr = [];
+	};
+console.timeEnd('using[]')	
+
+console.time('using new')
+	for (i = 0; i < 200000; i++) {
+		arr = new Array;
+	};
+console.timeEnd('using new')	
+
+</script>
+
+
+
+<body>
+
+
+
+
+
+
+
+
+<pre>
+<h3>new Object와 {} 생성</h3>
+let obj1 = new Object(); //new 연산자를 이용해 객체 생성
+let obj2 = {}; //객체 리터럴로 객체 생성(내부적으로 new Object 호출)
+
+리터럴 객체 생성을 권장하는 이유
+1. 코딩하기 편하며 가독성이 좋음
+2. 속도가 빠름
+3. 자바스크립트의 오버라이딩을 방지(new Object()는 오버라이딩이 가능하므로 위험)
+
+<h3>new Array 와 [] 생성</h3>
+
+let arr = new Array(); //new 연산자를 이용해 객체 생성
+let arr = []; //객체 리터럴로 객체 생성
+
+직관적인 리터럴 객체 생성을 더 선호한다.
+
+<h3>배열과 객체의 차이</h3>
+배열 : []에 직접 선언할 수 있다
+const info = ['a', 'b', 'c', 'd'];
+
+객체 : {}안에 선언할 수 없고, key:value로 만들어야 함
+const info = {
+				a : 'a',
+				b : 'b',
+				c : 'c',
+				d : 'd'
+			}	  
+</pre>
+
+
+
+</body>
+</html>

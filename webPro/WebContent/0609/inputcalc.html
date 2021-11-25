@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style>
+	input{
+		background: lightgray;
+		}
+		
+</style>
+
+<script>
+function calc(){
+	let vx = document.getElementById('x').value; //input타입의 값을 가져올때는 .value를 사용한다.
+	let vy = document.getElementById('y').value;
+	
+	//덧셈연산
+	vx = parseInt(vx); // 덧셈때 이 작업을 수행하지 않으면 문자열로 인식하여 합쳐진다.
+	vy = parseInt(vy);
+
+	sum = vx+vy;
+	
+	//출력
+	document.getElementById('sum').value = sum;
+}
+</script>
+</head>
+<body>
+<pre>
+script 에서 html 요소에 출력하기
+
+innerHTML : input 외 태그(div, p, span, td 등) 에 출력할 수 있고, 
+		    출력하고자 하는 내용에 html태그가 포함 된 경우
+textContent : input 외 태그(div, p, span, td 등)에 출력할수 있고,
+			  출력하고자 하는 내용에 html태그가 포함되지 않은경우
+value : input type = "text, password..." 등 textarea에 출력			  		    		    
+</pre>
+
+첫번째 정수<input type="text" id="x"><br>
+두번째 정수<input type="text" id="y"><br>
+ 결과(합)<input type="text" id="sum"><br>
+
+<input type="button" value="확인" onclick="calc()">
+</body>
+</html>

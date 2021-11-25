@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+    form{
+        border: 2px solid blue;
+        margin: 20px auto;
+        padding: 20px;
+        width : 40%;
+        height: auto;
+    }
+</style>
+<script>
+function sub(){
+   nameVal = document.getElementById('name').value;
+   
+   // 입력여부확인
+   if(nameVal.trim().length < 1){
+      alrert("이름을 입력하세요");
+      return;
+   }
+   res = nameVal + "님 환영합니다";
+   
+   // 부모창으로 출력하기
+   opener.document.getElementById('rst1').innerHTML = res;
+}
+
+</script>
+</head>
+<body>
+
+   <form>
+   이름 : <input type="text" id="name" required> <br><br>
+      <input type="button" value="확인" onclick="sub()">
+   </form>
+
+</body>
+</html>

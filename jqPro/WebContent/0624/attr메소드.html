@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<style>
+	img{
+		width : 100px;
+		height: 100px;
+	}
+</style>
+<script>
+$(function(){
+	
+	//이미지 src 값을 가져오기
+//	a = $("img").attr("src");
+//	console.log(a);
+	
+	//추출한 scr속성 값을 title에 설정하기
+	$("img").attr("title", function(){
+		
+//		$("img").attr("src"); //첫번재 항목에 대한 값만 불러온다	
+		//함수 안에서 내부적으로 for 문을 도는 this를 활용해 src 값을 불러온다
+	//	console.log($(this).attr("src"));
+		vsrc = $(this).attr("src");
+		
+		//속성값에서 이미지 이름만 추출한다
+		str = vsrc.lastIndexOf("/") +1 ;
+		end = vsrc.lastIndexOf(".");
+		vtt = vsrc.substring(str, end);
+		//추출한 값을 return 하여 title 속성의 값으로 설정한다
+		return vtt;
+	})
+	
+	$("button").on("click", function(){
+		$("img[alt='사자']").removeAttr("src");
+	})
+	
+	
+	
+	
+});
+
+</script>
+
+
+</head>
+<body>
+
+	<img src="../images/아메리카노.jpg" alt="아메리카노">
+	<img src="../images/사자.jpg" alt="사자">
+	<img src="../images/사과.jpg" alt="사과">
+	<img src="../images/가구1.jpg" alt="가구1">
+	<img src="../images/스포츠.jpg" alt="스포츠">
+	<br>
+
+	<button>눌러</button>
+
+</body>
+</html>

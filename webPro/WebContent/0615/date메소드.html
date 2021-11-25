@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script>
+	today = new Date();
+proc1 = function(){
+	
+	res = "오늘 날짜 : " + today.toLocaleDateString();
+	
+	day = today.getDay();
+//	alert(day); 2:화요일
+
+	switch(day){
+	case 0:
+		res +=" 일요일";
+		break;
+	case 1:
+		res +=" 월요일";
+		break;
+	case 2:
+		res +=" 화요일";
+		break;
+	case 3:
+		res +=" 수요일";
+		break;
+	case 4:
+		res +=" 목요일";
+		break;
+	case 5:
+		res +=" 금요일";
+		break;
+	case 6:
+		res +=" 토요일";
+		break;
+	}
+	
+	document.getElementById('rst1').innerHTML = res;
+}
+
+proc2=()=>{
+	
+	days = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+	 day = today.getDay(); //2 :화요일
+	 document.getElementById('rst2').innerHTML = days[day];	
+}
+
+</script>
+
+
+</head>
+<body>
+	<h3>getDat() : 요일구하기 0~6 </h3>
+	<input type="button" value="요일구하기"	 onclick="proc1()">
+	<div id="rst1"></div>
+	
+	
+	
+	<h3>배열을 이용한 요일구하기</h3>
+	<input type="button" value="요일구하기(배열)"	 onclick="proc2()">
+	<div id="rst2"></div>
+</body>
+</html>

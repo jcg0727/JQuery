@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+
+<style>
+	img{
+		width : 300px;
+		height : 300px;
+	}
+</style>
+
+
+<script>
+	$(function(){
+		$('#show').on('click',function(){
+			$('img').show(500)	
+		});
+		
+		$('#hide').on('click', function(){
+			$('img').hide(2000,function(){
+			alert('숨김');
+				
+			});
+		});
+		
+		$('#tog').on('click',function(){
+			$('img').toggle(100);
+		});
+		
+		$('#sup').on('click',function(){
+			$('img').slideUp(100);
+		});
+		
+		
+		
+		
+		
+	});
+</script>
+</head>
+<body>
+	<input type="button" id="show" value="show">
+	<input type="button" id="hide" value="hide">
+	<input type="button" id="tog" value="tog">
+	<input type="button" id="sup" value="sliceup">
+	<input type="button" id="sdown" value="slicedown">
+	<input type="button" id="stog" value="slideToggle">
+	<input type="button" id="fin" value="fadein">
+	<input type="button" id="fout" value="fadeout">
+	<input type="button" id="ftog" value="fadeToggle">
+	
+	<br>
+	
+	<div id="rst">
+	 	<img src="../images/Koala.jpg" alt="코알라">
+	</div>
+
+</body>
+</html>

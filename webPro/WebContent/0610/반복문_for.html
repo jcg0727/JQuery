@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	div{
+		border : 1px dotted olive;
+		width : 500px;
+		height: auto;
+		padding : 10px;
+	}
+	
+	td{
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	}
+</style>
+
+<script>
+function proc1(){
+	
+	sum = 0;
+	for (var i = 1; i <=100; i++) {
+		sum += i;
+	}
+	document.getElementById('rst1').textContent = sum; 
+	
+}
+//prompt를 이용해 단을 입력받아서 구구단 출력하기
+function proc2(){
+	
+	dan = prompt("단을 입력하세요");
+	
+	var ggdan = " " ; // for 문 돌아서 값 받을 변수선언
+	
+	for (i = 1; i < 10; i++) {
+		//바로 대입하는 경우가 아닐때는 상단에 변수선언을 꼭 해줘야 한다
+		ggdan += `${dan} * ${i} = ${dan*i} <br>`;
+	}
+	
+	document.getElementById('rst2').innerHTML = ggdan; //사용하려는것에 태그가 있다면 꼭 innerHTML사용
+	
+}
+
+function proc3(){
+	str = "<table border = '1'>";
+	
+	for (i = 1; i <10; i++) {
+		str += "<tr>";
+		str += "<td>" + i + "</td>";
+		
+		for (j = 2; j <10; i++) {
+			str += "<td>" + i*j + "</td>";
+		}
+		str += "</tr>";
+	}
+	str+= "</table>";
+	document.getElementById('rst3').innerHTML = str;
+}
+</script>
+
+</head>
+<body>
+
+
+<h2>1부터 100까지 합 구하기</h2>
+<input type="button" value="확인" onclick="proc1()">
+<div id="rst1"></div>
+
+<h2>prompt를 이용해 단을 입력받아서 구구단 출력하기</h2>
+<input type="button" value="확인" onclick="proc2()">
+<div id="rst2"></div>
+
+<h2>테이블에 구구단 출력하기(중첩for문)</h2>
+<input type="button" value="확인" onclick="proc3()">
+<div id="rst3"></div>
+
+</body>
+</html>

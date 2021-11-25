@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+
+
+<script>
+	$(function(){
+		$('#btn1').on('click' , function(){
+			$.ajax({
+				url : 'lprod.jsp',
+				type : 'get',
+				success : function(aa){
+					code = "";
+					$.each(aa, function(i){
+						code += (i+1) + "번째 데이터 정보 <br>";
+		         		code += "아이디 : " + aa[i].mid + "<br>";
+		         		code += "이름 : " + aa[i].mgu + "<br>";
+		         		code += "전화번호 : " + aa[i].mnm + "<br><br>";
+						
+					})
+					$('#rst1').html(code);
+					
+					
+				},
+				error : function(dd){
+					alert(dd);
+					
+				},
+				dataType : 'json'
+	
+			})//ajax
+	
+		})//on function
+
+	
+	$('#btn2').on('click' , function(){
+		$.ajax({
+			url : 'lprod2.jsp',
+			type : 'get',
+			success : function(res){
+				$('#rst2').html(res);
+			},
+			
+			error : function(xhr){
+				alert(xhr.status);
+				
+			},
+			dataType : 'html'
+
+		})//ajax
+	})//on function
+	
+	
+});//function
+</script>
+</head>
+<body>
+
+<input type="button" id="btn1" value="확인">
+<br>
+<div id="rst1"></div>
+
+<input type="button" id="btn2" value="확인">
+<br>
+<div id="rst2"></div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+function sem(){
+	price = parseInt(document.getElementById('price').value);	
+	su = parseInt(document.getElementById('su').value);
+	
+//	alert("가격 : " + price + ", 수량 : " + su);
+	alert(price + su);
+}
+</script>
+</head>
+<body>
+
+<pre>
+script에서 html의 요소에 접근 
+id 이용 : document.getElementById('아이디')
+
+접근한 요소에서 값 가져고익 - value 로 얻어지는 값은 문자열이다.
+ document.getElementById('아이디').value
+ or
+a= document.getElementById('아이디')
+a.value;
+</pre>
+
+<form>
+	가격 : <input type="text" id="price">
+	수량 : <input type="text" id="su">
+	<input type="button" value = "확인" onclick="sem();">
+
+</form>
+
+
+
+
+
+</body>
+</html>

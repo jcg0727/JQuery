@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+
+	var url = document.createElement('a');
+	
+	url.href = 'https://developer.mozilla.org:8080/en-US/search?q=URL#search-results-close-container';
+	
+	console.log(url.href);      // https://developer.mozilla.org:8080/en-US/search?q=URL#search-results-close-container
+	console.log(url.protocol);  // https:
+	console.log(url.host);      // developer.mozilla.org:8080
+	console.log(url.hostname);  // developer.mozilla.org
+	console.log(url.port);      // 8080
+	console.log(url.pathname);  // /en-US/search
+	console.log(url.search);    // ?q=URL
+	console.log(url.hash);      // #search-results-close-container
+	console.log(url.origin);    // https://developer.mozilla.org:8080
+
+	//프로토콜 : 정보를 주고받을 때 약속한 통신규칙과 방법
+	//호스트 : 네트워크에 연결된 모든 장치를 node라고 하는데, 그 node 중 ip주소가 할당된 node (인터넷으로 host끼리 데이터를 주고 받음)
+	//포트 : 네트워크를 통해 data를 주고받는 프로세스(app,program,software등)을 식별하기 위해 host내부적으로 프로세스가 할당받는 고유한 값
+	
+	
+  /* function proc1(){
+	  
+	res = "host : " + location.host + "<br>";
+	//
+	res += "hostname : " + location.hostname + "<br>";
+	res += "port : " + location.port + "<br>";
+	res += "href : " + location.href + "<br>";
+	res += "pathname : " + location.pathname + "<br>";
+	res += "protocol : " + location.protocol + "<br>";
+	
+	document.getElementById('rst1').innerHTML = res;
+  } */
+  
+  function proc2(){
+	  location.href = "test.jsp?name=korea";
+  }
+  
+  function goReplace(url){
+	  location.replace(url + "?name=공지");  
+  }
+  
+  function goReload(){
+	  
+	  //문자열을 배열로 저장하고 랜덤을 이용해 하나의 문자를 선택
+	  str = ["Hello", "HTML", "JavaScript", "jQuery", "css", "JAVA", "Oracle"];
+	  
+	  idx = parseInt(Math.random() * str.length);
+	  
+	  res = "<h1>" + str[idx] + "</h1>";
+	  
+	  document.getElementById('rst2').innerHTML = res;
+	  document.getElementById('rst2').style.color = 'purple';
+	  
+	  setTimeout(function(){
+		  location.reload();
+	  }, 3000);
+  }
+  
+</script>
+</head>
+<body>
+  
+  <h3>location : url에 대한 정보를 갖는 객체</h3>
+  <h3>페이지 이동 : location.href</h3>
+  <input type="button" value="확인" onclick="javascript:proc2()">
+  
+  <br>
+  
+  <h3>
+  a태그에서 href 속성에 이동할 페이지 설정<br>
+  a태그에서 자바스크립트 함수를 설정할 수 있다 - javascript: 를 꼭 기입해야 한다.
+  </h3>
+  
+  <a href="javascript:proc2()">test.jsp로 가기</a>
+  
+  <br>
+  
+  <h3>현재 문서를 새로운 문서로 대체, 다시 현재문서로 돌아갈 수 없다</h3>
+  <a href="javascript:goReplace('test.jsp')">공지사항</a>
+  
+  <br>
+  
+  <h3>
+  현재 문서를 다시 reload<br>
+  문자열을 출력 후 3초가 지나면 현재 문서로 다시 돌아오게 한다
+  </h3>
+  <input type="button" value="확인" onclick="goReload()">
+  <div id="rst2"></div>  
+</body>
+</html>

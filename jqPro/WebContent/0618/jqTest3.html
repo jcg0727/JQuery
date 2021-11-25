@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<script>
+
+//	window.onload = function(){
+		$(document).ready(function(){
+			
+	hlist = document.getElementsByTagName('h2');
+	
+		for(i=0; i<hlist.length; i++){
+			hlist[i].style.color = 'red';
+		}
+		hlist[2].style.backgroundColor = 'green';
+		});
+		
+//	}
+</script>
+</head>
+<body>
+	<h2>jQuery를 배웁시다1</h2>
+	<h2>jQuery를 배웁시다2</h2>
+	<h2>jQuery를 배웁시다3</h2>
+	<h2>jQuery를 배웁시다4</h2>
+	<h2>jQuery를 배웁시다5</h2>
+	<h2>jQuery를 배웁시다6</h2>
+	<h2>jQuery를 배웁시다1</h2>
+</body>
+</html>

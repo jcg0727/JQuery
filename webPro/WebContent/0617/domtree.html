@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+   function proc1() {
+      list = document.getElementsByTagName('ul')[1];
+      li = list.getElementsByTagName('li');
+      
+      vdiv = document.createElement('div');
+      
+      for (i = 0; i < li.length; i++) {
+         vsrc = li[i].firstChild.data;
+
+         //vsrc를 가지고 이미지 객체 생성 - createElement(tagName)
+         vimg = document.createElement('img');
+         vimg.src = "../Images/" + vsrc;
+         //px생략 가능         
+         vimg.widht = 50;
+         vimg.height = 40;
+         
+         //새로운 노드 추가
+         vdiv.appendChild(vimg);
+      }
+      list.appendChild(vdiv);
+      
+   }
+   function proc2(lis){      // 클릭한 li태그
+      
+      vsrc = lis.firstChild.data;
+   
+      vimg = document.createElement('img');
+      vimg.src = "../images/" + vsrc;
+      vimg.width = 50;
+      vimg.style.height = "50px";
+      
+      lis.appendChild(vimg);      
+   }
+   window.onlad = function(){
+	   
+   litag = document.getElementsByClassName('add');
+ 
+   for(i=0; i<litag.length; i++){
+	   //각 li에 click 이벤트를 적용시킨다.
+	   litag[i].addEventListener('click', addImage);
+	   
+	   //addImage는 function을 호출하는 매개변수로, 매개변수로 들어가는 함수는 괄호()를 쓰지않음
+	   //addImage 함수 내에서 this 객체를 사용할 수 잇따
+   }
+   }
+   
+   function addImage(){
+	   vsrc = this.firstChild.data;
+	   vimg = document.createElement('img');
+	   vimg.src = "../images/" + vsrc;
+	   vimg.width = 50;
+	   vimg.height = 50;
+	   
+	   //this-각자의 li 태그 요소
+	   this.appendChild(vimg);
+   }
+</script>
+</head>
+<body>
+   
+   <h3>버튼을 클릭하면 li값에 해당하는 이미지 출력</h3>
+   <ul>
+      <li>List1</li>
+      <li>List2</li>
+      <li>List3</li>
+      <li>List4</li>
+      <li>List5</li>
+   </ul>
+   <br><br>
+   <ul>
+      <li>딸기스무디.jpg</li>
+      <li>사자.jpg</li>
+      <li>doch.jpg</li>
+      <li>코알라.jpg</li>
+      <li>풍차.jpg</li>
+   </ul>
+
+   <input type="button" value="확인" onclick="proc1()">
+   
+   <h3>
+      li요소를 클릭하면 해당 이미지를 출력<br>
+      각각의 태그에 이벤트 설정(onclick)
+   </h3>
+   
+   <ul>
+      <li onclick="proc2(this)">딸기스무디.jpg</li>
+      <li onclick="proc2(this)">사자.jpg</li>
+      <li onclick="proc2(this)">doch.jpg</li>
+      <li onclick="proc2(this)">코알라.jpg</li>
+      <li onclick="proc2(this)">풍차.jpg</li>
+   </ul>
+   <br><br>
+   <ul>
+      <li>딸기스무디.jpg</li>
+      <li>사자.jpg</li>
+      <li>doch.jpg</li>
+      <li>코알라.jpg</li>
+      <li>풍차.jpg</li>
+   </ul>
+
+
+
+ <h3>한번에 이벤트 설정(addEventListener('이벤트이름',fn))   </h3>
+   
+   <ul>
+      <li class="add">딸기스무디.jpg</li>
+      <li class="add">사자.jpg</li>
+      <li class="add">doch.jpg</li>
+      <li class="add">코알라.jpg</li>
+      <li class="add">풍차.jpg</li>
+   </ul>
+</body>
+</html>

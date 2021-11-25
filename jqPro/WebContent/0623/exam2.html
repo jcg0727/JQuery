@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<script>
+$(function(){
+	//배경색 넣기 방법 (first-child, last-child)
+	/* $('td:first-child').css("background" ,"lightblue")
+	$("td:nth-child(2)").css("background" , "#d1c4e9");
+	$("td:nth-child(3)").css("background" , "lime");
+	$("td:nth-child(4)").css("background" , "orange");
+	$("td:nth-child(5)").css("background" , "green");
+	$("td:nth-child(6)").css("background" , "yellow");
+	$('td:last-child').css("background" , "#f0f4c3") */
+
+	//배경색 넣기 방법 2(nth-child(n+1))
+	$('td:nth-child(2n)').css("background" , "#d1c4e9");
+	$('td:nth-child(2n+1)').css("background" , "yellow");
+
+	
+	//첫번째 행 배경색 바꾸기1
+	$("tr td").slice(0,8).css("background" , "lightblue");
+});
+
+	
+</script>
+
+
+
+<style>
+	td{
+		width : 200px;
+		height : 50px;
+		padding : 5px;
+		text-align: center;
+	}
+</style>
+
+
+</head>
+<body>
+
+<table border="1">
+	<tr>
+		<td>ONE</td>
+		<td>ONE</td>
+		<td>ONE</td>
+		<td>ONE</td>
+		<td>ONE</td>
+		<td>ONE</td>
+		<td>ONE</td>
+		<td>ONE</td>
+	</tr>
+	
+	<tr>
+		<td>TWO</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	
+	<tr>
+		<td>THREE</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+
+	<tr>
+		<td>FOUR</td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+
+
+</table>
+
+
+</body>
+</html>

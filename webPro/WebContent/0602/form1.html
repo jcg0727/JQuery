@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+function send(){
+	//id로 호출
+	f3 = document.getElementById("f3")
+	f3.submit();
+}
+</script>
+</head>
+<body>
+<pre>
+전송 버튼을 클릭하면 test.jsp페이지를 get 방식으로 요청한다.
+url 주소 뒤에 queryString으로 입력한 값들이 표시된다.
+http://localhost/webPro/0602/test.jsp?id=aaa&pw=bbb
+</pre>
+
+
+<h2>get방식으로 서버 페이지에 요청하기</h2>
+
+<form action="test.jsp" method="get">
+	id<input type="text" name="id"><br>
+	pw<input type="password" name="pw"><br>
+	<input type="submit" value="전송">
+	<input type="reset">
+</form>
+
+<pre>
+전송버튼을 클릭하면 test.jsp페이지를 post 방식으로 요청한다.
+request header에 입력데이터를 담아서 보낸다.
+</pre>
+
+<h2>post방식으로 서버페이지 요청하기</h2>
+<form action="test.jsp" method="post">
+	id<input type="text" name="id"><br>
+	pw<input type="password" name="pw"><br>
+	<input type="submit" value="전송">
+	<input type="reset">
+</form>
+
+<pre>
+input type = "button" value="전송"은 정송을 할 수 없다.
+전송하기 위해서 javascript를 이용해 기능을 부여해야 한다.
+value속성을 반드시 기술한다.
+
+기능을 부여하기 위해 input태그에 onclick을 설정하여 함수 이름을 호출한다.
+input type = "button" value="전송" onclick="함수이름()"
+
+script에서
+id로 접근 하려면 : document.getElementById("id명")
+name으로 접근 : window.documetn.name명 // window는 생략 가능 하다.
+</pre>
+
+<h2>button에 기능 부여하기</h2>
+<form id ="f3" name="f3" action="test.jsp" method="post">
+	id<input type="text" name="id"><br>
+	pw<input type="password" name="pw"><br>
+	<input type="button" value="전송" onclick="send();">
+	<input type="reset">
+</form>
+
+<h2>이미지를 전송버튼으로 하기</h2>
+	<form action="test.jsp" method="post">
+	id<input type="text" name="id"><br>
+	pw<input type="password" name="pw"><br>
+	<input type="image" src="../images/check.png">
+	<input type="reset">
+</form>
+
+
+</body>
+</html>

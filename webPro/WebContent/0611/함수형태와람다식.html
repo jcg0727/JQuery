@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+  <style>
+	pre{
+		border : 3px dotted orange;
+	}
+  </style>
+
+  <script>
+  	//함수선언식
+  	function proc1(){
+  		document.getElementsByTagName('div')[0].innerHTML = "<h1>hello 선언식</h1>";
+  	}
+  	
+  	//함수 표현식
+  	var proc1 = function(){
+  		document.getElementsByTagName('div')[0].innerHTML = "<h1>hello 표현식</h1>";
+  	}
+  	
+  	//람다식(매개변수) =>{실행문}
+  	var proc1 = () =>{
+  		document.getElementsByTagName('div')[0].innerHTML = "<h1>he11o 람다식</h1>"''
+  	}
+  </script>
+</head>
+
+  <body>
+	<pre>
+	선언식 함수(=기명함수, Named Function) : 브라우저 런타임 이전에 선언되는 함수
+	표현식 함수(=익명함수, Anonymous Function) : 브라우저 런타임에 동적으로 선언되는 함수
+	람다 함수(ES6, java8버전에서 나온 함수, 화살표 함수)
+	: var 함수명 = (매개변수)=>{실행문}
+	매개변수가 하나만 있으면 괄호 생략 가능
+	매개변수가 없거나 여래기일 경우 괄호안에 지정한다
+	람다 함수내에서 this(현재 수행중인 객체)를 사용할 수 없다 - this는 람다 자체가 된다
+	</pre>
+	
+	<input type="button" value="확인" onclick="proc1()">
+	<div></div>
+	
+  </body>
+</html>

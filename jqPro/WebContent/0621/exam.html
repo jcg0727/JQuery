@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<script>
+
+$(function(){
+	$('input').on('click', function(){
+		vimg = $("<img src = '../images/아메리카노.jpg' width = '100px' height = '100px'>");
+		vimg.appendTo('#box1');
+		
+		$('img').on('click', function(){
+			$(this).css('border', '4px solid red');
+		});
+	});
+});
+
+</script>
+
+</head>
+<body>
+
+<input type="button" value="이미지 추가"><br><br><hr>
+<div id="box1"></div>
+
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+function proc1() {
+   window.open();
+}
+
+function proc2(){
+    window.open("winsub.html", "_blank", "width=500 height = 300 left = 30 top = 20");
+    //open(URL, name, specs)
+    //새로운 창의 경로와 , 크기 , 위치를 지정
+  }
+
+
+</script>
+</head>
+<body>
+   
+   <input type="button" value="확인" onclick="proc1()">
+   
+   s
+<pre>
+버튼클릭하여 새로운 창 열기(win)
+새로운 창 (자식)
+현재 창(부모)
+</pre>
+
+   <input type="button" value="확인" onclick="proc2()">
+   <div id=rst1></div>
+ 
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+function removeNode(){
+	//삭제할 대상 찾기
+	child = document.getElementById('p1');
+	
+	//삭제할 대상의 부모 찾기
+	parent = document.getElementById('target');
+	
+	parent.removeChild(child);
+}
+
+	str = ["안녕하세요", "꽃", "나무", "바람", "구름", "여름", "6월"];
+function proc1(){
+	
+	rnd = parseInt(Math.random() * str.length);
+	
+	//선택한 랜덤 문자열을 textNode로 생성
+	txt = document.createTextNode(str[rnd]);
+
+	ptag = document.createElement('p');
+
+	ptag.appendChild(txt);
+	
+	document.getElementById('rst1').appendChild(ptag);
+}
+
+function proc2(){
+	// 삭제할 대상 찾기
+	parent = document.getElementById('rst1');
+	
+	//삭제할 대상의 부모 찾기
+	child = parent.lastChild;
+	
+	parent.removeChild(child);
+}
+
+function proc3(){
+	rnd = parseInt(Math.random() * str.length);
+	
+	//선택한 랜덤 문자열을 textNode로 생성
+	txt = document.createTextNode(str[rnd]);
+	
+	//동적으로 삭제버튼 생성
+	btn = document.createElement('input');
+	
+	//속성과 이벤트 설정
+	btn.type = "button";
+	btn.value = "삭제";
+	btn.onclick = function(){
+	
+	//삭제할 대상 찾기 - 버튼의 부모 p태그
+		p = this.parentNode;	
+		p.remove();
+	}
+	ptag = document.createElement('p');
+	ptag.appendChild(txt);
+	ptag.appendChild(btn);
+	
+	document.getElementById('rst3').appendChild(ptag);
+}
+</script>
+</head>
+<body>
+
+	<h3>removeChild : 요소 삭제</h3>
+	
+	<div id="target">
+		<p id="p1">첫번재 단락</p>
+		<p id="p2">두번재 단락</p>
+	</div>
+	
+	<button onclick="removeNode()">누르면 삭제</button>
+	
+	<br><br><hr>
+	
+	
+	<h3>문자배열을 textNode로 변환하여 동적 p태그에 추가</h3>
+	<input type="button" value="추가" onclick="proc1()">
+	<button type="button"  onclick="proc2()">삭제</button>
+	<div id="rst1"></div>
+	
+	<br><br><hr>
+	
+	
+	<h3>각 요소에 삭제 버튼을 동적으로 생성하고 삭제</h3>
+	<button type="button"  onclick="proc3()">추가삭제</button>
+	<div id="rst3"></div>
+	
+</body>
+</html>

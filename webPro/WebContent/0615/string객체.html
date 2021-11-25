@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	div{
+	 	color : red;
+	}
+</style>
+<script>
+str = "우리나라 좋은나라 대한민국 만세~~ 독도는 우리땅~~ABCabc0123";
+
+//charAt(index)
+function proc1(){
+	a = str.charAt(3);
+	b = str.charAt(29);
+	c = str.charAt(32);
+	d = str.charAt(37);
+	
+	aa = str.charCodeAt(3);
+	bb = str.charCodeAt(29);
+	cc = str.charCodeAt(32);
+	dd = str.charCodeAt(37);
+	
+	res = "str.charAt(3) : " + a + "<br>";
+	res += "str.charAt(29) : " + b + "<br>";
+	res += "str.charAt(32) : " + c + "<br>";
+	res += "str.charAt(37) : " + d + "<br><br>";
+	
+	res += "str.charCodeAt(3) : " + aa + "<br>";
+	res += "str.charCodeAt(29) : " + bb + "<br>";
+	res += "str.charCodeAt(32) : " + cc + "<br>";
+	res += "str.charCodeAt(37) : " + dd + "<br>";
+
+	document.getElementById('rst1').innerHTML = res;
+}
+
+function proc2(){
+	a = str.indexOf("나라");
+	b = str.lastIndexOf("독도");
+	
+	res = "str.indexOf('나라') : " + a + "<br>";
+	res += "str.lastIndexOf('독도') : " + b + "<br>";
+	
+	document.getElementById('rst2').innerHTML = res;
+
+}
+
+function proc3(){
+	tval = document.getElementById('txt').value; 
+	
+	res = `공백제거 전 : ${tval.length} <br>`;
+	tt = tval.trim();
+	res += `공백제거 후 : ${tt.length} <br>`;
+	
+	//아무것도 입력하지 않은 상태(공백만 넣은 상태)
+	if(tt.length < 1){
+		alert("데이터를 입력하세요");
+		return false;
+	}
+	document.getElementById('rst3').innerHTML = res;
+}
+
+function proc4(){
+	start = str.indexOf("독"); // 20 
+	end = start + "독도는 우리땅".length; // 20+7 = 27
+	
+	s1 = str.substring(start , end); //end 포함하지 않음
+	s2 = str.slice(start, end); // end 포함하지 않음
+	s3 = str.substr(start, "독도는 우리땅".length);
+
+	res = "str.indexOf('독') : " + start + "<br>";
+	res += "start + '독도는 우리땅'.length : " + end + "<br>";
+	res += "str.substring(start, end) : " + s1 + "<br>";
+	res += "str.slice(statr, end) : " + s2 + "<br>";
+	res += "str.substr(start, '독도는우리땅'.length) : " + s3 + "<br>";
+	document.getElementById('rst4').innerHTML = res;
+}
+
+function proc5(){
+	arr = str.splic(" ");
+	
+	res = "str length : " + str.length + "<br>";
+	res += "arr length : " + arr.length + "<br>";
+	
+	res += "str[3]" + str[3] + "<br>";
+	res += "arr[3]" + arr[3] + "<br>";
+	
+	document.getElementById('rst5').innerHTML = res;
+}
+
+proc6 = function(){
+	tVal = document.getElementById('text').value;
+	tVal = tVal.replace(/\r/g, "").replace(/\n/g, "<br>") //g : 모든 패턴을 체크
+	document.getElementById('rst6').innerHTML = tVal;
+}
+
+proc7 = function(){
+	dVal = document.getElementById('rst7').innerHTML;
+	dVal = dVal.replace(/<br>/g, "\r\n");
+	document.getElementById('text2').value = dVal;
+}
+
+</script>
+
+
+
+</head>
+<body>
+  <h2>str = "우리나라 좋은나라 대한민국 만세~~ 독도는 우리땅~~ABCabc0123";</h2>
+
+
+  <h4>
+  charAt(index) : index번째에 있는 문자를 리턴 <br>
+  charCodeAt(index) : index번째에 있는 문자의 unicode를 리턴
+  A -> 65  a -> 97  0 -> 48
+  </h4>
+
+  <input type="button" value="확인" onclick="proc1()">
+  <div id="rst1"></div>
+
+
+  <h4>
+  indexOf(value, index) : value값의 위치를 리턴, index는 검색 시작위치 <br>
+  lastIndexOf(value, index)
+  </h4>
+
+  <input type="button" value="확인" onclick="proc2()">
+  <div id="rst2"></div>
+  
+  
+  <h4>
+  trim() : 앞뒤의 공백을 제거 <br>
+  text입력 후 script로 보내기 -value
+  </h4>
+  
+  <input type="text" id="txt">
+  <input type="button" value="확인" onclick="proc3()">
+  <div id="rst3"></div>
+  
+  
+  <h4>
+  start ~ end 사이의 문자열을 잘라내기, end는 포함되지 않음 <br>
+  substring(start, end) <br>
+  slice(start, end) <br>
+  substr(start, length)
+  </h4>  
+
+  <input type="button" value="확인" onclick="proc4()">
+  <div id="rst4"></div>
+
+
+  <h4>
+  split('구분자','갯수') : 구분자를 기준으로 문자열을 분리하여 배열로 리턴
+  </h4>
+  
+  <input type="button" value="확인" onclick="proc5()">
+  <div id="rst5"></div>
+  
+  
+  <h4>
+  replace(old, new) : old문자를 new문자로 바꾼다 <br>
+  textarea에 입력 - value를 이용하여 스크립트로 보내기 - \r\n이 포함되어 있다 <br>
+  div에 출력 - innerHTML을 이용하여 출력 - \r\n을 &lt;br>태그로 바꾸어서 출력 
+  </h4>
+
+  <textarea rows="10" cols="50" id="text"></textarea>
+  <input type="button" value="확인" onclick="proc6()">
+  <div id="rst6"></div>
+  
+  
+  <h4>
+  div에 입력되어 있는 문자를 스크립트로 가져가기 - innerHTML - &lt;br>이 포함 <br>
+  textarea에 출력 - value - &lt;br>태그를 \r\n으로 변경
+  </h4>
+  
+  <textarea rows="10" cols="50" id="text2"></textarea>
+  <input type="button" value="확인" onclick="proc7()">
+  <div id="rst7">
+    우리집 강아지는 복슬강아지 <br>
+    학교갔다 돌아오면 멍멍멍 <br>
+  <br>
+    코끼리 한마리가 거미줄에 걸렸네 <br>
+    신나게 그네를 탔다네~ <br>
+  </div>
+  
+
+</body>
+</html>

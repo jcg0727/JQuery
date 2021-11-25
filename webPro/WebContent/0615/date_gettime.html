@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+
+now = new Date();
+
+function proc1(){
+	
+	// 태어난 날로부터 현재까지 경과한 날수, 년수
+	bir = new Date("1992.07.27");
+	
+	//경과시간 구하기
+	tday = now.getTime();
+	bday = bir.getTime();
+	
+	time = tday - bday ;
+	
+	sec = time / 1000;
+	min = sec / 60;
+	hh =  min /60;
+	dd = hh/24;
+	yy = dd/365;
+	
+	res = `태어난 년도 : ${bir.toLocaleDateString()} <br>`;
+	res += `오늘 날짜 : ${now.toLocaleDateString()} <br>`;
+	res += `${sec} 초 경과 <br>`;
+	res += `${min} 분 경과 <br>`;
+	res += `${hh} 시 경과 <br>`;
+	res += `${dd} 일 경과 <br>`;
+	res += `${yy} 년 경과 <br>`;
+	
+	document.getElementById('rst1').innerHTML = res;
+}
+
+function proc2(){
+	
+	christ = new Date("2021.12.25");
+	
+	nowTime = now.getTime();
+	chrisTime = christ.getTime();
+	
+	time = chrisTime - nowTime;
+	dd = time / 1000/60/60/24;
+	
+	res = `크리스마스 : ${christ.toLocaleDateString()} <br>`;
+	res += `오늘 날짜 : ${now.toLocaleDateString()} <br>`;	
+	res += `크리스마스까지 ${dd}일 남았습니다`;
+	
+	document.getElementById('rst2').innerHTML = res;
+}
+
+
+proc3=()=>{
+	//선택된 날 값 가져오기
+	pday = document.getElementById('pday').value;
+	
+	pp = new Date(pday);
+	
+	nowTime = now.getTime();
+	ppTime = pp.getTime();
+	time = nowTime - ppTime;
+	dd = time/1000/60/60/24;
+	console.log(dd.toFixed());
+	
+	res = "";
+	if(dd>=7){
+		res += "교환/환불/반품 기간이 지낫습니다";
+	}else{
+		res += "교환/환불/반품이 가능합니다";
+	}
+	 document.getElementById('rst3').innerHTML = res;
+}
+</script>
+
+</head>
+<body>
+
+
+<h3>getTime() : 경과시간 구하기 (return 결과형은 millisec)</h3>
+<input type="button" value="확인" onclick="proc1()">
+<div id="rst1"></div> <br><br>
+
+<h3>크리스마스까지 남은 날 수 </h3>
+<input type="button" value="확인" onclick="proc2()">
+<div id="rst2"></div>
+
+
+<h3>선택한 날로부터 현재까지 지난 일 수 구하기<br>
+	(7일 이상 지나면 교환/환불/반품 불가) </h3>
+<input type="date" id = "pday">
+<input type="button" value="확인" onclick="proc3()">
+<div id="rst3"></div>
+
+</body>
+</html>

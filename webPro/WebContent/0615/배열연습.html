@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	function proc1(){
+		arr = new Array();
+		
+		while(true){
+			str = prompt("이름을 입력하세요");
+			if(str == null || str == " "){
+			break;
+			}
+			arr.push(str);		
+		}
+		document.getElementById('rst1').innerHTML = arr;
+	}
+		
+	proc2=()=>{
+		arr = new Array();
+		
+		while(true){
+			str = prompt("수를 입력하세요");
+			idx = arr.indexOf(str);
+			
+			if(idx != -1){
+				alert("값이 중복되네요");
+			}else{
+				arr.push(str);
+			}
+			if(arr.length > = 5) break;
+		}
+		document.getElementById('rst2').innerHTML = arr;
+		
+	}
+
+</script>
+
+</head>
+<body>
+
+<h3>이름을 입력받아 배열에 저장하고 출력<br>
+	입력의 마짐가은 공백문자 입력 또는 취소버튼을 눌렀을 때로 한다</h3>
+	
+<input type="button" value="확인" onclick="proc1()">
+<div id="rst1"></div>
+
+<br><br><br>
+
+<h3>서로 중복되지 않는 정수 5개 입력받아 배열에 저장하고 출력</h3>
+	
+<input type="button" value="확인" onclick="proc2()">
+<div id="rst2"></div>
+</body>
+</html>

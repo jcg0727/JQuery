@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function(){
+	//전체 선택자
+	$('*').css('background' , 'yellow');
+	//요소 선택자
+	$('h1').css('color' , 'blue');
+	$('h1').css('background', 'skyblue');
+	//id선택자
+	$('#para').css('color' , 'green').css('background', 'orange');
+	//class선택자
+	$('.sample').css('color' , 'red');
+});
+</script>
+</head>
+<body>
+	<h1>제목입니다</h1>
+	<h2 id="para">작은 제목입니다</h2>
+	<h2 class="sample">샘플입니다</h2>
+</body>
+</html>

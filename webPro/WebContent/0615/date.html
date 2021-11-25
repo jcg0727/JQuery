@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+
+now1 = new Date();
+now2 = new Date(33000);
+now3 = new Date("2000.05.05");
+now4 = new Date(2000, 5, 14, 12, 33);
+
+window.onload = function(){
+	
+document.getElementById('rst1').innerHTML = now1 + "<br>";
+document.getElementById('rst1').innerHTML += now2 + "<br>";
+document.getElementById('rst1').innerHTML += now3 + "<br>";
+document.getElementById('rst1').innerHTML += now4 + "<br><br>"; 
+
+
+res = now1.toLocaleString() + "<br>";
+res += now2.toLocaleString() + "<br>";
+res += now3.toLocaleDateString() + "<br>";
+res += now4.toLocaleDateString() + "<br>";
+document.getElementById('rst1').innerHTML += res;
+}
+
+</script>
+
+
+</head>
+<body>
+
+<div id="rst1"></div>
+
+
+</body>
+</html>
